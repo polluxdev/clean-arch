@@ -1,15 +1,13 @@
 package infrastructure
 
 import (
-	"log"
-
 	"github.com/joho/godotenv"
+	"github.com/polluxdev/clean-arch/app/usecases"
 )
 
-func Load() {
+func Load(logger usecases.Logger) {
 	err := godotenv.Load()
-
 	if err != nil {
-		log.Fatal("Error loading env file")
+		logger.LogError("%s", err)
 	}
 }

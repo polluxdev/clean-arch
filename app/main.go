@@ -5,7 +5,14 @@ import (
 )
 
 func main() {
-	infrastructure.Load()
-	infrastructure.NewSQLHandler()
-	infrastructure.Dispatch()
+	logger := infrastructure.NewLogger()
+
+	infrastructure.Load(logger)
+
+	sqlHandler, err := infrastructure.NewSQLHandler()
+	if err != nil {
+		logger.LogError("%s", err)
+	}
+
+	infrastructure.Dispatch(logger, sqlHandler)
 }
